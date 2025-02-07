@@ -30,16 +30,27 @@
             }
         </style>
         <script>
-            clicks = 0;
-            cpc = 1;
-            cps = 0;
+            clicks = Number(localStorage.getItem('clicks'));
+            if (Number(localStorage.getItem('cpc')) > 0) {
+                cpc = Number(localStorage.getItem('cpc'));
+            }
+            else {
+                cpc = 1;
+            }
+            cps = Number(localStorage.getItem('cps'));
             boomprog = 0;
+            function loadpage() {
+                document.getElementById('counter').innerHTML=clicks;
+                document.getElementById('cpc').innerHTML=cpc;
+                document.getElementById('cps').innerHTML=cps;
+            }
             function startcps() {
                 setInterval(continuecps,1000);
             }
             function continuecps() {
                 clicks = clicks + cps;
                 document.getElementById('counter').innerHTML=clicks;
+                localStorage.setItem('clicks', clicks)
             }
             function clicked() {
                 clicks = clicks + cpc;
@@ -48,6 +59,7 @@
                     boom();
                 }
                 document.getElementById('counter').innerHTML=clicks;
+                localStorage.setItem('clicks', clicks)
             }
             function boom() {
                 boomprog = 0;
@@ -62,6 +74,7 @@
                     document.getElementById('counter').innerHTML=clicks;
                     cpc = cpc + 1;
                     document.getElementById('cpc').innerHTML=cpc;
+                    localStorage.setItem('cpc', cpc)
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -73,6 +86,7 @@
                     document.getElementById('counter').innerHTML=clicks;
                     cps = cps + 1;
                     document.getElementById('cps').innerHTML=cps;
+                    localStorage.setItem('cps', cps)
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -82,8 +96,9 @@
                 if (clicks >= 500) {
                     clicks = clicks - 500;
                     document.getElementById('counter').innerHTML=clicks;
-                    cpc = cpc + 10;
+                    cpc = cpc + 12;
                     document.getElementById('cpc').innerHTML=cpc;
+                    localStorage.setItem('cpc', cpc)
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -93,8 +108,9 @@
                 if (clicks >= 1000) {
                     clicks = clicks - 1000;
                     document.getElementById('counter').innerHTML=clicks;
-                    cps = cps + 5;
+                    cps = cps + 12;
                     document.getElementById('cps').innerHTML=cps;
+                    localStorage.setItem('cps', cps)
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -102,8 +118,8 @@
             }
         </script>
     </head>
-    <body onload="startcps()">
-        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Alpha 0.1.4</h1>
+    <body onload="startcps(), loadpage()">
+        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Alpha 0.1.5</h1>
         <button onclick="clicked()" id="eggroll">
             <img src="eggroll.png" id="image" style="width:500px; height:500px;">
         </button>
