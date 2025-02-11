@@ -50,7 +50,7 @@
             function continuecps() {
                 clicks = clicks + cps;
                 document.getElementById('counter').innerHTML=clicks;
-                localStorage.setItem('clicks', clicks)
+                localStorage.setItem('clicks', clicks);
             }
             function clicked() {
                 clicks = clicks + cpc;
@@ -59,7 +59,7 @@
                     boom();
                 }
                 document.getElementById('counter').innerHTML=clicks;
-                localStorage.setItem('clicks', clicks)
+                localStorage.setItem('clicks', clicks);
             }
             function boom() {
                 boomprog = 0;
@@ -74,7 +74,7 @@
                     document.getElementById('counter').innerHTML=clicks;
                     cpc = cpc + 1;
                     document.getElementById('cpc').innerHTML=cpc;
-                    localStorage.setItem('cpc', cpc)
+                    localStorage.setItem('cpc', cpc);
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -86,7 +86,7 @@
                     document.getElementById('counter').innerHTML=clicks;
                     cps = cps + 1;
                     document.getElementById('cps').innerHTML=cps;
-                    localStorage.setItem('cps', cps)
+                    localStorage.setItem('cps', cps);
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -98,7 +98,7 @@
                     document.getElementById('counter').innerHTML=clicks;
                     cpc = cpc + 12;
                     document.getElementById('cpc').innerHTML=cpc;
-                    localStorage.setItem('cpc', cpc)
+                    localStorage.setItem('cpc', cpc);
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
@@ -110,10 +110,26 @@
                     document.getElementById('counter').innerHTML=clicks;
                     cps = cps + 12;
                     document.getElementById('cps').innerHTML=cps;
-                    localStorage.setItem('cps', cps)
+                    localStorage.setItem('cps', cps);
                 }
                 else {
                     alert("Not Enough Egg Rolls!");
+                }
+            }
+            function reset() {
+                if (confirm('Are you sure you want to reset all of your progress?')) {
+                    if (confirm('Are you really really sure? (You will not recieve anything.)')) {
+                        clicks = 0;
+                        cpc = 1;
+                        cps = 0;
+                        boomprog = 0;
+                        localStorage.setItem('clicks', clicks);
+                        localStorage.setItem('cpc', cpc);
+                        localStorage.setItem('cps', cps);
+                        document.getElementById('counter').innerHTML=clicks;
+                        document.getElementById('cpc').innerHTML=cpc;
+                        document.getElementById('cps').innerHTML=cps;
+                    }
                 }
             }
         </script>
@@ -132,6 +148,8 @@
         <br>
         <button onclick="cpc_up2()">Upgraded Upgrade Egg Rolls Per Click (500)</button><br>
         <br>
-        <button onclick="cps_up2()">Gain Heavily Encouraged Volunteers (1000)</button>
+        <button onclick="cps_up2()">Gain Heavily Encouraged Volunteers (1000)</button><br>
+        <br>
+        <button onclick="reset()">Reset Progress</button>
     </body>
 </html>
