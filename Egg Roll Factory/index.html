@@ -28,6 +28,10 @@
                 -webkit-user-select:none;
                 -ms-user-select:none;
             }
+            #redbutton {
+                border-color:red;
+                color:red;
+            }
         </style>
         <script>
             clicks = Number(localStorage.getItem('clicks'));
@@ -38,28 +42,79 @@
                 cpc = 1;
             }
             cps = Number(localStorage.getItem('cps'));
+            exp_prog = Number(localStorage.getItem('exp_prog'));
+            if (Number(localStorage.getItem('exp_mult')) > 0) {
+                exp_mult = Number(localStorage.getItem('exp_mult'));
+            }
+            else {
+                exp_mult = .5;
+            }
+            if (Number(localStorage.getItem('level')) > 0) {
+                level = Number(localStorage.getItem('level'));
+            }
+            else {
+                level = 1;
+            }
             boomprog = 0;
             function loadpage() {
-                document.getElementById('counter').innerHTML=clicks;
+                document.getElementById('level').innerHTML=level;
+                document.getElementById('counter').innerHTML=Math.floor(clicks);
                 document.getElementById('cpc').innerHTML=cpc;
                 document.getElementById('cps').innerHTML=cps;
+                if (Number(localStorage.getItem('to_next_level')) > 0) {
+                    document.getElementById('to_next_level').innerHTML = localStorage.getItem('to_next_level');
+                }
             }
             function startcps() {
-                setInterval(continuecps,1000);
+                setInterval(continuecps,10);
             }
             function continuecps() {
-                clicks = clicks + cps;
-                document.getElementById('counter').innerHTML=clicks;
+                clicks = clicks + cps*.01;
+                exp_prog = exp_prog + cps*.01;
+                document.getElementById('counter').innerHTML=Math.floor(clicks);
                 localStorage.setItem('clicks', clicks);
+                exp_up();
             }
             function clicked() {
                 clicks = clicks + cpc;
+                exp_prog = exp_prog + cpc;
                 boomprog = boomprog + 1;
                 if (boomprog == 100) {
                     boom();
                 }
-                document.getElementById('counter').innerHTML=clicks;
+                document.getElementById('counter').innerHTML=Math.floor(clicks);
                 localStorage.setItem('clicks', clicks);
+                exp_up();
+            }
+            function exp_up() {
+                localStorage.setItem('exp_prog', exp_prog);
+                document.getElementById('exp_counter').innerHTML=Math.floor(exp_prog);
+                document.getElementById('exp').style.width=exp_prog*exp_mult + "%";
+                if (Number(document.getElementById('exp_counter').innerHTML) > Number(document.getElementById('to_next_level').innerHTML)) {
+                    exp_prog = exp_prog - Number(document.getElementById('to_next_level').innerHTML);
+                    localStorage.setItem('exp_prog', exp_prog);
+                    document.getElementById('exp_counter').innerHTML=Math.floor(exp_prog);
+                    lvl_up();
+                    document.getElementById('exp').style.width = exp_prog*exp_mult + "%";
+                    exp_up();
+                }
+            }
+            function lvl_up() {
+                level = level + 1;
+                localStorage.setItem('level', level);
+                document.getElementById('level').innerHTML=level;
+                if (level == 2) {
+                    document.getElementById('to_next_level').innerHTML=1000;
+                    exp_mult = exp_mult/10
+                    localStorage.setItem('exp_mult', exp_mult);
+                    localStorage.setItem('to_next_level', Number(document.getElementById('to_next_level').innerHTML));
+                }
+                else {
+                    document.getElementById('to_next_level').innerHTML=document.getElementById('to_next_level').innerHTML + "000";
+                    exp_mult = exp_mult/1000
+                    localStorage.setItem('exp_mult', exp_mult);
+                    localStorage.setItem('to_next_level', Number(document.getElementById('to_next_level').innerHTML));
+                }
             }
             function boom() {
                 boomprog = 0;
@@ -71,7 +126,7 @@
             function cpc_up1() {
                 if (clicks >= 50) {
                     clicks = clicks - 50;
-                    document.getElementById('counter').innerHTML=clicks;
+                    document.getElementById('counter').innerHTML=Math.floor(clicks);
                     cpc = cpc + 1;
                     document.getElementById('cpc').innerHTML=cpc;
                     localStorage.setItem('cpc', cpc);
@@ -83,7 +138,7 @@
             function cps_up1() {
                 if (clicks >= 100) {
                     clicks = clicks - 100;
-                    document.getElementById('counter').innerHTML=clicks;
+                    document.getElementById('counter').innerHTML=Math.floor(clicks);
                     cps = cps + 1;
                     document.getElementById('cps').innerHTML=cps;
                     localStorage.setItem('cps', cps);
@@ -95,7 +150,7 @@
             function cpc_up2() {
                 if (clicks >= 500) {
                     clicks = clicks - 500;
-                    document.getElementById('counter').innerHTML=clicks;
+                    document.getElementById('counter').innerHTML=Math.floor(clicks);
                     cpc = cpc + 12;
                     document.getElementById('cpc').innerHTML=cpc;
                     localStorage.setItem('cpc', cpc);
@@ -107,7 +162,7 @@
             function cps_up2() {
                 if (clicks >= 1000) {
                     clicks = clicks - 1000;
-                    document.getElementById('counter').innerHTML=clicks;
+                    document.getElementById('counter').innerHTML=Math.floor(clicks);
                     cps = cps + 12;
                     document.getElementById('cps').innerHTML=cps;
                     localStorage.setItem('cps', cps);
@@ -123,9 +178,18 @@
                         cpc = 1;
                         cps = 0;
                         boomprog = 0;
+                        exp_prog = 0;
+                        exp_mult = .5;
+                        level = 1;
                         localStorage.setItem('clicks', clicks);
                         localStorage.setItem('cpc', cpc);
                         localStorage.setItem('cps', cps);
+                        localStorage.setItem('level', level);
+                        localStorage.setItem('exp_mult', exp_mult);
+                        localStorage.setItem('exp_prog', exp_prog);
+                        document.getElementById('level').innerHTML=level;
+                        document.getElementById('to_next_level').innerHTML="100";
+                        localStorage.setItem('to_next_level', Number(document.getElementById('to_next_level').innerHTML));
                         document.getElementById('counter').innerHTML=clicks;
                         document.getElementById('cpc').innerHTML=cpc;
                         document.getElementById('cps').innerHTML=cps;
@@ -135,10 +199,13 @@
         </script>
     </head>
     <body onload="startcps(), loadpage()">
-        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Alpha 0.1.6</h1>
+        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Beta 0.2.7</h1>
         <button onclick="clicked()" id="eggroll">
             <img src="eggroll.png" id="image" style="width:500px; height:500px;">
         </button>
+        <div style="background-color:gray; padding:10px; margin:0px 25%;"></div>
+        <div id="exp" style="background-color:green; padding:10px 0px; margin-top:-20px; margin-left:25%; width:0px;"></div>
+        <h1 style="text-align:center;">Level <span id="level">1</span> (<span id="exp_counter">0</span>/<span id="to_next_level">100</span>)</h1>
         <h1>Egg Rolls: <span id="counter">0</span></h1>
         <h1>Egg Rolls Per Click: <span id="cpc">1</span></h1>
         <h1>Egg Rolls Per Second: <span id="cps">0</span></h1>
@@ -150,6 +217,6 @@
         <br>
         <button onclick="cps_up2()">Gain Heavily Encouraged Volunteers (1000)</button><br>
         <br>
-        <button onclick="reset()">Reset Progress</button>
+        <button id="redbutton" onclick="reset()">Reset Progress</button>
     </body>
 </html>
