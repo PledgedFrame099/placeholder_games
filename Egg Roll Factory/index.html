@@ -129,12 +129,12 @@
                     clicks = clicks - resourceCost*available;
                     document.getElementById("counter").innerHTML = Math.floor(clicks);
                     if (type == 'cpc') {
-                        cpc += available;
+                        cpc += available*increment;
                         document.getElementById('cpc').innerHTML = cpc;
                         localStorage.setItem('cpc', cpc);
                     }
                     else if (type == 'cps') {
-                        cps += available;
+                        cps += available*increment;
                         document.getElementById('cps').innerHTML = cps;
                         localStorage.setItem('cps', cps);
                     }
@@ -185,7 +185,7 @@
         </script>
     </head>
     <body onload="startcps(), loadpage()">
-        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Beta 0.2.8</h1>
+        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Beta 0.2.9</h1>
         <button onclick="clicked()" id="eggroll">
             <img src="eggroll.png" id="image" style="width:500px; height:500px;">
         </button>
