@@ -34,86 +34,106 @@
             }
         </style>
         <script>
-            clicks = Number(localStorage.getItem('clicks'));
-            if (Number(localStorage.getItem('cpc')) > 0) {
-                cpc = Number(localStorage.getItem('cpc'));
-            }
-            else {
-                cpc = 1;
-            }
-            cps = Number(localStorage.getItem('cps'));
-            exp_prog = Number(localStorage.getItem('exp_prog'));
-            if (Number(localStorage.getItem('exp_mult')) > 0) {
-                exp_mult = Number(localStorage.getItem('exp_mult'));
-            }
-            else {
-                exp_mult = .5;
-            }
-            if (Number(localStorage.getItem('level')) > 0) {
-                level = Number(localStorage.getItem('level'));
-            }
-            else {
-                level = 1;
-            }
-            boomprog = 0;
+            var clicks=0
+
+            var cps=0
+            var cpc=1
+
+            var xp=0
+            var xpNeed=100
+            var level=1
+
+            var boomprog=0
+
             function loadpage() {
-                document.getElementById('level').innerHTML=level;
-                document.getElementById('counter').innerHTML=Math.floor(clicks);
-                document.getElementById('cpc').innerHTML=cpc;
-                document.getElementById('cps').innerHTML=cps;
-                if (Number(localStorage.getItem('to_next_level')) > 0) {
-                    document.getElementById('to_next_level').innerHTML = localStorage.getItem('to_next_level');
+                refreshUi()
+            }
+
+            function Load(){
+                if(localStorage.getItem("data")!=null){
+                    var data=JSON.parse(localStorage.getItem("data"))
+                    clicks=data[0]
+                    cps=data[1]
+                    cpc=data[2]
+                    xp=data[3]
+                    xpNeed=data[4]
+                    level=data[5]
+                }else{
+                    clicks=0
+                    cps=0
+                    cpc=1
+                    xp=0
+                    xpNeed=100
+                    level=1
+                }
+                refreshUi()
+            }
+            function Save(){
+                localStorage.setItem("data",JSON.stringify([clicks,cps,cpc,xp,xpNeed,level]))
+            }
+            function refreshUi(){
+                document.getElementById('counter').innerHTML = clicks;
+                document.getElementById('level').innerHTML=level
+                document.getElementById('to_next_level').innerHTML=xpNeed
+                document.getElementById('cps').innerHTML = cps;
+                document.getElementById('cpc').innerHTML = cpc;
+                document.getElementById('exp_counter').innerHTML = xp;
+            }
+
+            function reset(){
+                if(confirm("Are you sure you want to reset all of your progress?")&&confirm('Are you really really sure? (You will not recieve anything.)')){
+                    localStorage.removeItem("data")
+                    clicks=0
+                    cps=0
+                    cpc=1
+                    xp=0
+                    xpNeed=100
+                    level=1
+                    refreshUi()
                 }
             }
-            function startcps() {
-                setInterval(continuecps,10);
-            }
-            function continuecps() {
-                clicks = clicks + cps*.01;
-                exp_prog = exp_prog + cps*.01;
-                document.getElementById('counter').innerHTML=Math.floor(clicks);
-                localStorage.setItem('clicks', clicks);
-                exp_up();
-            }
-            function clicked() {
-                clicks = clicks + cpc;
-                exp_prog = exp_prog + cpc;
+
+            function clicked(){
+                clicks+=cpc
+                xp+=cpc
+                if(xp>xpNeed){
+                    levelUp()
+                }
+
                 boomprog = boomprog + 1;
                 if (boomprog == 100) {
                     boom();
                 }
-                document.getElementById('counter').innerHTML=Math.floor(clicks);
-                localStorage.setItem('clicks', clicks);
-                exp_up();
             }
-            function exp_up() {
-                localStorage.setItem('exp_prog', exp_prog);
-                document.getElementById('exp_counter').innerHTML=Math.floor(exp_prog);
-                document.getElementById('exp').style.width=exp_prog*exp_mult + "%";
-                if (Number(document.getElementById('exp_counter').innerHTML) > Number(document.getElementById('to_next_level').innerHTML)) {
-                    exp_prog = exp_prog - Number(document.getElementById('to_next_level').innerHTML);
-                    localStorage.setItem('exp_prog', exp_prog);
-                    document.getElementById('exp_counter').innerHTML=Math.floor(exp_prog);
-                    lvl_up();
-                    document.getElementById('exp').style.width = exp_prog*exp_mult + "%";
-                    exp_up();
+            function levelUp(){
+                if(xp>xpNeed){
+                    level+=1
+                    document.getElementById('level').innerHTML=level
+                    xp-=xpNeed
+                    if(level==2){
+                        xpNeed=1000
+                    }else{
+                        xpNeed*=1000
+                    }
+                    document.getElementById('to_next_level').innerHTML=xpNeed
                 }
             }
-            function lvl_up() {
-                level = level + 1;
-                localStorage.setItem('level', level);
-                document.getElementById('level').innerHTML=level;
-                if (level == 2) {
-                    document.getElementById('to_next_level').innerHTML=1000;
-                    exp_mult = exp_mult/10
-                    localStorage.setItem('exp_mult', exp_mult);
-                    localStorage.setItem('to_next_level', Number(document.getElementById('to_next_level').innerHTML));
+
+            function upgrade(resourceCost, increment, type) {
+                var available=1
+                if (document.getElementById("buy_all").checked) {
+                    available = Math.floor(clicks/resourceCost);
                 }
-                else {
-                    document.getElementById('to_next_level').innerHTML=document.getElementById('to_next_level').innerHTML + "000";
-                    exp_mult = exp_mult/1000
-                    localStorage.setItem('exp_mult', exp_mult);
-                    localStorage.setItem('to_next_level', Number(document.getElementById('to_next_level').innerHTML));
+
+                if(clicks>=resourceCost*available){
+                    clicks -= resourceCost*available;
+                    if (type == 'cpc') {
+                        cpc += available*increment;
+                        document.getElementById('cpc').innerHTML = cpc;
+                    }else if (type == 'cps') {
+                        cps += available*increment;
+                        document.getElementById('cps').innerHTML = cps;
+                    }
                 }
             }
             function boom() {
@@ -123,68 +143,25 @@
                     document.getElementById('image').src="eggroll.png";
                 }, 800);
             }
-            function upgrade(resourceCost, increment, type) {
-                if (document.getElementById("buy_all").checked) {
-                    var available = Math.floor(clicks/resourceCost);
-                    clicks = clicks - resourceCost*available;
-                    document.getElementById("counter").innerHTML = Math.floor(clicks);
-                    if (type == 'cpc') {
-                        cpc += available*increment;
-                        document.getElementById('cpc').innerHTML = cpc;
-                        localStorage.setItem('cpc', cpc);
-                    }
-                    else if (type == 'cps') {
-                        cps += available*increment;
-                        document.getElementById('cps').innerHTML = cps;
-                        localStorage.setItem('cps', cps);
-                    }
+
+            function Run(){
+                clicks+=cps*0.01
+                xp+=cps*0.01
+                if(xp>xpNeed){
+                    levelUp()
                 }
-                else if (clicks >= resourceCost) {
-                    clicks -= resourceCost;
-                    document.getElementById('counter').innerHTML = Math.floor(clicks);
-                    if (type == 'cpc') {
-                        cpc += increment;
-                        document.getElementById('cpc').innerHTML = cpc;
-                        localStorage.setItem('cpc', cpc);
-                    }
-                    else if (type == 'cps') {
-                        cps += increment;
-                        document.getElementById('cps').innerHTML = cps;
-                        localStorage.setItem('cps', cps);
-                    }
-                }
-                else {
-                    alert("Not Enough Egg Rolls!");
-                }
+
+                Save()
+
+                document.getElementById("counter").innerHTML = Math.floor(clicks);
+                document.getElementById('exp').style.width = (xp/xpNeed)*50 + "%";
+                document.getElementById('exp_counter').innerHTML = Math.floor(xp);
             }
-            function reset() {
-                if (confirm('Are you sure you want to reset all of your progress?')) {
-                    if (confirm('Are you really really sure? (You will not recieve anything.)')) {
-                        clicks = 0;
-                        cpc = 1;
-                        cps = 0;
-                        boomprog = 0;
-                        exp_prog = 0;
-                        exp_mult = .5;
-                        level = 1;
-                        localStorage.setItem('clicks', clicks);
-                        localStorage.setItem('cpc', cpc);
-                        localStorage.setItem('cps', cps);
-                        localStorage.setItem('level', level);
-                        localStorage.setItem('exp_mult', exp_mult);
-                        localStorage.setItem('exp_prog', exp_prog);
-                        document.getElementById('level').innerHTML=level;
-                        document.getElementById('to_next_level').innerHTML="100";
-                        localStorage.setItem('to_next_level', Number(document.getElementById('to_next_level').innerHTML));
-                        document.getElementById('counter').innerHTML=clicks;
-                        document.getElementById('cpc').innerHTML=cpc;
-                        document.getElementById('cps').innerHTML=cps;
-                    }
-                }
-            }
+            let Inter=setInterval(Run,10)
+            let ensure=setInterval(refreshUi,1000)
         </script>
     </head>
-    <body onload="startcps(), loadpage()">
+    <body onload="loadpage()">
         <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Beta 0.2.9</h1>
         <button onclick="clicked()" id="eggroll">
             <img src="eggroll.png" id="image" style="width:500px; height:500px;">
