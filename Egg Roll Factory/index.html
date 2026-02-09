@@ -108,12 +108,12 @@
             }
             function refreshUi(){
                 //update the ui
-                document.getElementById('counter').innerHTML = clicks;
-                document.getElementById('level').innerHTML=level
-                document.getElementById('to_next_level').innerHTML=xpNeed
+                document.getElementById('counter').innerHTML = Math.floor(clicks);
+                document.getElementById('level').innerHTML=level;
+                document.getElementById('to_next_level').innerHTML=Math.floor(xpNeed);
                 document.getElementById('cps').innerHTML = cps;
                 document.getElementById('cpc').innerHTML = cpc;
-                document.getElementById('exp_counter').innerHTML = xp;
+                document.getElementById('exp_counter').innerHTML = Math.floor(xp);
             }
 
             function reset(){
@@ -220,3 +220,5 @@
         </script>
     </body>
 </html>
+
+
