@@ -111,7 +111,7 @@ function clicked() {
 
 function upgrade(resourceCost, increment, type) {
     //available is 1 unless "buy all" is checked
-    let available = getElement("buy_all").checked ? Math.floor(clicks / resourceCost) : 1
+    let available = getElement("buy_all").checked ? Math.floor(clicks / resourceCost) : 1;
 
     //double check that the upgrade can be purchased
     if (!clicks >= resourceCost * available) return
