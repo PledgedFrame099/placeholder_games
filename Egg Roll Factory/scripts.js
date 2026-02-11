@@ -38,19 +38,25 @@ function Load() {
     level = data[5];
     refreshUi();
 }
+
 function Save() {
     //save all values to localstorage
     localStorage.setItem("data", JSON.stringify([clicks, cps, cpc, xp, xpNeed, level]));
 }
+
+function getElement(name) {
+    return document.getElementById(name);
+}
+
 function refreshUi() {
     //update the ui
-    document.getElementById('counter').innerHTML = Math.floor(clicks);
-    document.getElementById('level').innerHTML = level;
-    document.getElementById('to_next_level').innerHTML = Math.floor(xpNeed);
-    document.getElementById('cps').innerHTML = cps;
-    document.getElementById('cpc').innerHTML = cpc;
-    document.getElementById('exp').style.width = (xp / xpNeed) * 50 + "%";
-    document.getElementById('exp_counter').innerHTML = Math.floor(xp);
+    getElement('counter').innerHTML = Math.floor(clicks);
+    getElement('level').innerHTML = level;
+    getElement('to_next_level').innerHTML = Math.floor(xpNeed);
+    getElement('cps').innerHTML = cps;
+    getElement('cpc').innerHTML = cpc;
+    getElement('exp').style.width = (xp / xpNeed) * 50 + "%";
+    getElement('exp_counter').innerHTML = Math.floor(xp);
 }
 
 function reset() {
@@ -73,7 +79,7 @@ function levelUp(){
 
     level++;
     xp -= xpNeed;
-    
+
     if(level === 2){
         xpNeed = 1000;
     }else{
@@ -105,7 +111,7 @@ function clicked() {
 
 function upgrade(resourceCost, increment, type) {
     //available is 1 unless "buy all" is checked
-    let available = document.getElementById("buy_all").checked ? available = Math.floor(clicks / resourceCost) : 1
+    let available = getElement("buy_all").checked ? available = Math.floor(clicks / resourceCost) : 1
 
     //double check that the upgrade can be purchased
     if (!clicks >= resourceCost * available) return
@@ -121,9 +127,9 @@ function upgrade(resourceCost, increment, type) {
 function boom() {
     //explosion animation
     boomprog = 0;
-    document.getElementById('image').src = "explosion.gif";
+    getElement('image').src = "explosion.gif";
     setTimeout(() => {
-        document.getElementById('image').src = "eggroll.png";
+        getElement('image').src = "eggroll.png";
     }, 800);
 }
 
