@@ -75,7 +75,7 @@ function reset() {
 }
 
 function levelUp(){
-    if(!xp > xpNeed) return 
+    if(!xp > xpNeed) return;
 
     level++;
     xp -= xpNeed;
@@ -114,7 +114,7 @@ function upgrade(resourceCost, increment, type) {
     let available = getElement("buy_all").checked ? Math.floor(clicks / resourceCost) : 1;
 
     //double check that the upgrade can be purchased
-    if (clicks < resourceCost * available) return
+    if (clicks < resourceCost * available) return;
 
     clicks -= resourceCost * available;
 
@@ -149,6 +149,6 @@ Load();
 refreshUi();
 
 //interval for primary function
-let runInterval = setInterval(Run, 10);
+setInterval(Run, 10);
 //ensure ui is up to date every second
-let uiInterval = setInterval(refreshUi, 1000);
+setInterval(refreshUi, 1000);
