@@ -150,5 +150,3 @@ refreshUi();
 
 //interval for primary function
 setInterval(Run, 10);
-//ensure ui is up to date every second
-setInterval(refreshUi, 1000);
