@@ -1,10 +1,11 @@
-let clicks, cpc, level, xpNeed;
+let clicks, cps, xp, cpc, level, xpNeed;
 
 function setDefaultValues() {
-        [clicks, cps, xp] = 0;
-        [cpc, level] = 1;
-        xpNeed = 100;
+    [clicks, cps, xp] = [0, 0, 0];
+    [cpc, level] = [1, 1];
+    xpNeed = 100;
 }
+
 setDefaultValues();
 
 function Load() {
