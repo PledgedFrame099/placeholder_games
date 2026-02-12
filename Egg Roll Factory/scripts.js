@@ -1,27 +1,24 @@
-let clicks, cps, xp, boomprog = 0;
-let cpc, level = 1;
+let clicks, cpc, level, xpNeed;
 
-let xpNeed = 100;
+function setDefaultValues() {
+        clicks, cps, xp = 0;
+        cpc, level = 1;
+        xpNeed = 100;
+}
+setDefaultValues();
 
 function Load() {
     //check if localstorage has data
     let dataRaw = localStorage.getItem("data")
     if (!dataRaw) {
-        clicks, cps, xp = 0;
-        cpc, level = 1;
-        xpNeed = 100;
+        setDefaultValues();
         refreshUi();
         return;
     }
 
     //set all values to saved values
     let data = JSON.parse(dataRaw);
-    clicks = data[0];
-    cps = data[1];
-    cpc = data[2];
-    xp = data[3];
-    xpNeed = data[4];
-    level = data[5];
+    [clicks, cps, cpc, xp, xpNeed, level] = [...data]
     refreshUi();
 }
 
@@ -48,12 +45,7 @@ function reset() {
     if (!confirm('Are you really really sure? (You will not recieve anything.)')) return;
 
     localStorage.removeItem("data");
-    clicks = 0;
-    cps = 0;
-    cpc = 1;
-    xp = 0;
-    xpNeed = 100;
-    level = 1;
+    setDefaultValues();
     refreshUi();
 }
 
@@ -80,7 +72,6 @@ function checkLevelUp() {
 }
 
 function clicked() {
-    //function run when the user clicks
     clicks += cpc;
     xp += cpc;
 
@@ -128,7 +119,6 @@ function Run() {
 
 //initialize
 Load();
-refreshUi();
 
 //interval for primary function
 setInterval(Run, 10);
