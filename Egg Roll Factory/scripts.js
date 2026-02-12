@@ -1,7 +1,7 @@
-let clicks, cps, xp, cpc, level, xpNeed;
+let clicks, cps, xp, cpc, level, xpNeed, boomprog;
 
 function setDefaultValues() {
-    [clicks, cps, xp] = [0, 0, 0];
+    [clicks, cps, xp, boomprog] = [0, 0, 0, 0];
     [cpc, level] = [1, 1];
     xpNeed = 100;
 }
