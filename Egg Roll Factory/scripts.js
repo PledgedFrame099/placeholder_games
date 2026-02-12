@@ -45,7 +45,7 @@ function reset() {
     if (!confirm('Are you really really sure? (You will not recieve anything.)')) return;
 
     localStorage.removeItem("data");
-    setDefaultValues();
+    Load();
     refreshUi();
 }
 
