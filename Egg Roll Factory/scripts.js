@@ -9,7 +9,7 @@ function setDefaultValues() {
 setDefaultValues();
 
 function Load() {
-    let dataRaw = localStorage.getItem("data");
+    const dataRaw = localStorage.getItem("data");
 
     if (!dataRaw) {
         setDefaultValues();
@@ -53,17 +53,13 @@ function levelUp(){
 
     xp -= xpNeed;
 
-    if(level === 2){
-        xpNeed = 1000;
-    }else{
-        xpNeed *= 1000;
-    }
+    xpNeed = level === 2 ? 1000 : xpNeed * 1000;
 
     refreshUi();
 }
 
 function checkLevelUp() {
-    if (xp >= xpNeed) {
+    while (xp >= xpNeed) {
         levelUp();
     }
 }
@@ -75,7 +71,6 @@ function clicked() {
     checkLevelUp();
 
     boomprog++;
-
     if (boomprog === 100) boom();
 }
 
@@ -83,7 +78,6 @@ function upgrade(resourceCost, increment, type) {
     //available is 1 unless "buy all" is checked
     let available = getElement("buy_all").checked ? Math.floor(clicks / resourceCost) : 1;
 
-    //double check that the upgrade can be purchased
     if (clicks < resourceCost * available) return;
 
     clicks -= resourceCost * available;
@@ -94,8 +88,8 @@ function upgrade(resourceCost, increment, type) {
     refreshUi();
 }
 
+//explosion animation
 function boom() {
-    //explosion animation
     boomprog = 0;
     getElement('image').src = "explosion.gif";
     setTimeout(() => {
@@ -103,8 +97,7 @@ function boom() {
     }, 800);
 }
 
-function Run() {
-    //increase clicks and xp by cps
+setInterval(() => {
     clicks += cps * 0.01;
     xp += cps * 0.01;
 
@@ -112,10 +105,6 @@ function Run() {
 
     Save();
     refreshUi();
-}
+}, 10);
 
-//initialize
 Load();
-
-//interval for primary function
-setInterval(Run, 10);
