@@ -1,43 +1,43 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Egg Roll Factory</title>
-        <link rel="icon" type="image/x-icon" href="favicon.ico">
-        <link rel="stylesheet" href="./styles.css">
-    </head>
-    <body>
-        <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Beta 0.2.10</h1>
-        <button onclick="clicked()" id="eggroll">
-            <img src="eggroll.png" id="image" style="width:500px; height:500px;">
-        </button>
-        <div style="background-color:gray; padding:10px; margin:0px 25%;"></div>
-        <div id="exp" style="background-color:green; padding:10px 0px; margin-top:-20px; margin-left:25%; width:0px;"></div>
-        <h1 style="text-align:center;">Level <span id="level">1</span> (<span id="exp_counter">0</span>/<span id="to_next_level">100</span>)</h1>
-        <h1>Egg Rolls: <span id="counter">0</span></h1>
-        <h1>Egg Rolls Per Click: <span id="cpc">1</span></h1>
-        <h1>Egg Rolls Per Second: <span id="cps">0</span></h1>
-        <h2>Repeatable Upgrades:</h2>
-        <button onclick="upgrade(50, 1, 'cpc')">Upgrade Egg Rolls Per Click (50)</button><br>
-        <br>
-        <button onclick="upgrade(100, 1, 'cps')">Upgrade Egg Rolls Per Second (100)</button><br>
-        <br>
-        <button onclick="upgrade(500, 12, 'cpc')">Upgraded Upgrade Egg Rolls Per Click (500)</button><br>
-        <br>
-        <button onclick="upgrade(1000, 12, 'cps')">Gain Heavily Encouraged Volunteers (1000)</button><br>
-        <br>
-        <button onclick="upgrade(5000, 140, 'cpc')">Upgraded Upgraded Upgrade Egg Rolls Per Click (5000)</button><br>
-        <br>
-        <button onclick="upgrade(10000, 140, 'cps')">"Hire" Everyone in a Small Village (10000)</button><br>
-        <br>
-        <label for="buy_all">Buy All</label>
-        <input type="checkbox" id="buy_all"><br>
-        <br>
-        <button id="redbutton" onclick="reset()">Reset Progress</button>
 
-        <script src="./scripts.js"></script>
-    </body>
+<head>
+    <title>Egg Roll Factory</title>
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="stylesheet" href="./styles.css">
+</head>
+
+<body>
+    <h1 style="text-align:center; font-size:75px; margin-bottom:0px;">Egg Roll Factory Beta 0.2.10</h1>
+    <button onclick="clicked()" id="eggroll">
+        <img src="eggroll.png" id="image" style="width:500px; height:500px;">
+    </button>
+    <div style="background-color:gray; padding:10px; margin:0px 25%;"></div>
+    <div id="exp" style="background-color:green; padding:10px 0px; margin-top:-20px; margin-left:25%; width:0px;"></div>
+    <h1 style="text-align:center;">Level <span id="level">1</span> (<span id="exp_counter">0</span>/<span
+            id="to_next_level">100</span>)</h1>
+    <h1>Egg Rolls: <span id="counter">0</span></h1>
+    <h1>Egg Rolls Per Click: <span id="cpc">1</span></h1>
+    <h1>Egg Rolls Per Second: <span id="cps">0</span></h1>
+    <h2>Repeatable Upgrades:</h2>
+    <button onclick="upgrade(50, 1, 'cpc')">Upgrade Egg Rolls Per Click (50)</button><br>
+    <br>
+    <button onclick="upgrade(100, 1, 'cps')">Upgrade Egg Rolls Per Second (100)</button><br>
+    <br>
+    <button onclick="upgrade(500, 12, 'cpc')">Upgraded Upgrade Egg Rolls Per Click (500)</button><br>
+    <br>
+    <button onclick="upgrade(1000, 12, 'cps')">Gain Heavily Encouraged Volunteers (1000)</button><br>
+    <br>
+    <button onclick="upgrade(5000, 140, 'cpc')">Upgraded Upgraded Upgrade Egg Rolls Per Click (5000)</button><br>
+    <br>
+    <button onclick="upgrade(10000, 140, 'cps')">"Hire" Everyone in a Small Village (10000)</button><br>
+    <br>
+    <label for="buy_all">Buy All</label>
+    <input type="checkbox" id="buy_all"><br>
+    <br>
+    <button id="redbutton" onclick="reset()">Reset Progress</button>
+
+    <script src="./scripts.js"></script>
+</body>
+
 </html>
-
-
-
-

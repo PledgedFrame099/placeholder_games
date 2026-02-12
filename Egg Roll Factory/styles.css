@@ -1,28 +1,31 @@
 #eggroll {
-    background-color:white;
-    border-color:white;
-    border-style:solid;
-    display:block;
-    margin-left:auto;
-    margin-right:auto;
-    margin-top:50px;
-    margin-bottom:50px;
+    background-color: white;
+    border-color: white;
+    border-style: solid;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 50px;
+    margin-bottom: 50px;
 }
+
 #eggroll:hover {
-    border-radius:90px;
-    border-color:black;
-    border-width:10px;
-    margin-top:42px;
-    margin-bottom:42px;
+    border-radius: 90px;
+    border-color: black;
+    border-width: 10px;
+    margin-top: 42px;
+    margin-bottom: 42px;
 }
+
 img {
-    -webkit-user-drag:none;
-    user-select:none;
-    -moz-user-select:none;
-    -webkit-user-select:none;
-    -ms-user-select:none;
+    -webkit-user-drag: none;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
 }
+
 #redbutton {
-    border-color:red;
-    color:red;
+    border-color: red;
+    color: red;
 }

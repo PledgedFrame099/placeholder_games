@@ -48,7 +48,7 @@ function reset() {
     Load();
 }
 
-function levelUp(){
+function levelUp() {
     level++;
 
     xp -= xpNeed;
