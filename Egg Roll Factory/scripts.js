@@ -48,12 +48,9 @@ function reset() {
 
     localStorage.removeItem("data");
     Load();
-    refreshUi();
 }
 
 function levelUp(){
-    if(!xp > xpNeed) return;
-
     level++;
 
     xp -= xpNeed;
