@@ -17,15 +17,13 @@ function Load() {
         return;
     }
 
-    let data = JSON.parse(dataRaw);
-
-    ({ clicks, cps, cpc, xp, xpNeed, level } = data);
+    ({ clicks, cps, cpc, xp, xpNeed, level } = JSON.parse(dataRaw));
 
     refreshUi();
 }
 
 function Save() {
-    localStorage.setItem("data", JSON.stringify([clicks, cps, cpc, xp, xpNeed, level]));
+    localStorage.setItem("data", JSON.stringify({ clicks, cps, cpc, xp, xpNeed, level }));
 }
 
 function getElement(name) {
