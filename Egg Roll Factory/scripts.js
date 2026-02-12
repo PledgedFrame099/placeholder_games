@@ -26,18 +26,18 @@ function Save() {
     localStorage.setItem("data", JSON.stringify({ clicks, cps, cpc, xp, xpNeed, level }));
 }
 
-function getElement(name) {
+function getElem(name) {
     return document.getElementById(name);
 }
 
 function refreshUi() {
-    getElement('counter').innerHTML = Math.floor(clicks);
-    getElement('level').innerHTML = level;
-    getElement('to_next_level').innerHTML = Math.floor(xpNeed);
-    getElement('cps').innerHTML = cps;
-    getElement('cpc').innerHTML = cpc;
-    getElement('exp').style.width = (xp / xpNeed) * 50 + "%";
-    getElement('exp_counter').innerHTML = Math.floor(xp);
+    getElem('counter').innerHTML = Math.floor(clicks);
+    getElem('level').innerHTML = level;
+    getElem('to_next_level').innerHTML = Math.floor(xpNeed);
+    getElem('cps').innerHTML = cps;
+    getElem('cpc').innerHTML = cpc;
+    getElem('exp').style.width = (xp / xpNeed) * 50 + "%";
+    getElem('exp_counter').innerHTML = Math.floor(xp);
 }
 
 function reset() {
@@ -76,14 +76,18 @@ function clicked() {
 
 function upgrade(resourceCost, increment, type) {
     //available is 1 unless "buy all" is checked
-    let available = getElement("buy_all").checked ? Math.floor(clicks / resourceCost) : 1;
+    let available = getElem("buy_all").checked ? Math.floor(clicks / resourceCost) : 1;
 
-    if (clicks < resourceCost * available) return;
+    const totalCost = resourceCost * available;
 
-    clicks -= resourceCost * available;
+    if (clicks < totalCost) return;
 
-    if (type === 'cpc') cpc += available * increment;
-    else if (type === 'cps') cps += available * increment;
+    clicks -= totalCost;
+
+    const amountToAdd = available * increment;
+
+    if (type === 'cpc') cpc += amountToAdd;
+    else if (type === 'cps') cps += amountToAdd;
 
     refreshUi();
 }
@@ -91,9 +95,9 @@ function upgrade(resourceCost, increment, type) {
 //explosion animation
 function boom() {
     boomprog = 0;
-    getElement('image').src = "explosion.gif";
+    getElem('image').src = "explosion.gif";
     setTimeout(() => {
-        getElement('image').src = "eggroll.png";
+        getElem('image').src = "eggroll.png";
     }, 800);
 }
 
