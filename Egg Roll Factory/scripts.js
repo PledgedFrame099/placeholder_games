@@ -98,8 +98,9 @@ function boom() {
 }
 
 setInterval(() => {
-    clicks += cps * 0.01;
-    xp += cps * 0.01;
+    const gain = cps / 100;
+    clicks += gain;
+    xp += gain;
 
     checkLevelUp();
 
