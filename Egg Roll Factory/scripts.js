@@ -9,17 +9,18 @@ function setDefaultValues() {
 setDefaultValues();
 
 function Load() {
-    //check if localstorage has data
-    let dataRaw = localStorage.getItem("data")
+    let dataRaw = localStorage.getItem("data");
+
     if (!dataRaw) {
         setDefaultValues();
         refreshUi();
         return;
     }
 
-    //set all values to saved values
     let data = JSON.parse(dataRaw);
-    [clicks, cps, cpc, xp, xpNeed, level] = [...data]
+
+    ({ clicks, cps, cpc, xp, xpNeed, level } = data);
+
     refreshUi();
 }
 
