@@ -1,29 +1,15 @@
-let clicks = 0;
+let clicks, cps, xp, boomprog = 0;
+let cpc, level = 1;
 
-//clicks per second
-let cps = 0;
-//clicks per click
-let cpc = 1;
-
-//values for leveling system
-let xp = 0;
 let xpNeed = 100;
-let level = 1;
-
-//explosion progress
-let boomprog = 0;
 
 function Load() {
     //check if localstorage has data
     let dataRaw = localStorage.getItem("data")
     if (!dataRaw) {
-        //set all values to default
-        clicks = 0;
-        cps = 0;
-        cpc = 1;
-        xp = 0;
+        clicks, cps, xp = 0;
+        cpc, level = 1;
         xpNeed = 100;
-        level = 1;
         refreshUi();
         return;
     }
@@ -40,7 +26,6 @@ function Load() {
 }
 
 function Save() {
-    //save all values to localstorage
     localStorage.setItem("data", JSON.stringify([clicks, cps, cpc, xp, xpNeed, level]));
 }
 
@@ -49,7 +34,6 @@ function getElement(name) {
 }
 
 function refreshUi() {
-    //update the ui
     getElement('counter').innerHTML = Math.floor(clicks);
     getElement('level').innerHTML = level;
     getElement('to_next_level').innerHTML = Math.floor(xpNeed);
@@ -60,7 +44,6 @@ function refreshUi() {
 }
 
 function reset() {
-    //ask the user twice before deleting all data and resetting values to default
     if (!confirm("Are you sure you want to reset all of your progress?")) return;
     if (!confirm('Are you really really sure? (You will not recieve anything.)')) return;
 
@@ -78,6 +61,7 @@ function levelUp(){
     if(!xp > xpNeed) return;
 
     level++;
+
     xp -= xpNeed;
 
     if(level === 2){
@@ -86,7 +70,7 @@ function levelUp(){
         xpNeed *= 1000;
     }
 
-    refreshUi()
+    refreshUi();
 }
 
 function checkLevelUp() {
@@ -97,8 +81,6 @@ function checkLevelUp() {
 
 function clicked() {
     //function run when the user clicks
-
-    //add clicks and exp
     clicks += cpc;
     xp += cpc;
 
