@@ -1,8 +1,8 @@
 let clicks, cpc, level, xpNeed;
 
 function setDefaultValues() {
-        clicks, cps, xp = 0;
-        cpc, level = 1;
+        [clicks, cps, xp] = 0;
+        [cpc, level] = 1;
         xpNeed = 100;
 }
 setDefaultValues();
