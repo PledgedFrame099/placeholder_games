@@ -10,15 +10,9 @@ setDefaultValues();
 
 function Load() {
     const dataRaw = localStorage.getItem("data");
+    const data = dataRaw ? JSON.parse(dataRaw) : { clicks: 0, cps: 0, cpc: 1, xp: 0, xpNeed: 100, level: 1 };
 
-    if (!dataRaw) {
-        setDefaultValues();
-        refreshUi();
-        return;
-    }
-
-    ({ clicks, cps, cpc, xp, xpNeed, level } = JSON.parse(dataRaw));
-
+    ({ clicks, cps, cpc, xp, xpNeed, level } = data);
     refreshUi();
 }
 
