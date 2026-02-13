@@ -10,7 +10,7 @@
 }
 #eggroll:hover {
     border-radius:90px;
-    border-color:black;
+    border-color:lightgray;
     border-width:10px;
     margin-top:42px;
     margin-bottom:42px;
@@ -22,7 +22,85 @@ img {
     -webkit-user-select:none;
     -ms-user-select:none;
 }
+
+.progress-bar {
+    background: linear-gradient(to right, green, yellow, orange, red);
+    padding:10px;
+    margin:0px 25%;
+}
+
+.exp-bar {
+    background-color: lightgray;
+    padding:10px 0px;
+    margin-top:-20px;
+    margin-right:25%;
+    margin-left:auto;
+    width:0px;"
+}
+
 #redbutton {
     border-color:red;
     color:red;
+}
+
+.upgrade-button {
+  background-color: #008000;
+  border-color: darkgreen;
+  color: white;
+  padding: 5px;
+  margin: 2px;
+  border-radius: 5px;
+}
+
+.upgrade-button:hover {
+  background-color: rgba(0, 150, 0, 1);
+}
+
+.box {
+    color: white;
+    width: auto;
+    height: auto;
+    padding: 12px;
+    margin: 12px;
+    background: linear-gradient(to right, lightblue, darkgray);
+    border-radius: 12px;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4)
+}
+
+.redbutton {
+    margin-left: 12px;
+}
+
+.counters {
+    text-align:left;
+    color: white;
+    background: linear-gradient(to right, lightblue, darkgray);
+    border-radius: 12px;
+    padding: 4px;
+    margin: 12px;
+    text-shadow: 0px 0px 8px rgba(0, 0, 0, 0.4);
+}
+
+.eggroll-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    position: relative;
+    top: 4px;
+}
+
+.cursor-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    position: relative;
+    top: 4px;
+}
+
+.stopwatch-icon {
+    width: 36px;
+    height: 36px;
+    object-fit: contain;
+    position: relative;
+    top: 6px;
 }
