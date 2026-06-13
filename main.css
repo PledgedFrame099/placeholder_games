@@ -1,0 +1,48 @@
+body {
+    font-family:sans-serif;
+}
+
+header {
+    color:white;
+    background-color:#4D7E92;
+    margin-top:-8px;
+    margin-right:-8px;
+    margin-left:5%;
+    height:200px;
+}
+
+header img {
+    float:left;
+    margin-left:-3%;
+    width:200px;
+}
+
+header h1 {
+    font-size:60px;
+    margin-left:250px;
+}
+
+header td {
+    padding:5px 25px;
+}
+
+.theme {
+    width:3%;
+    float:right;
+    margin:2%;
+}
+
+a {
+    color:white;
+    text-decoration:none;
+}
+
+a:hover {
+    text-decoration:underline;
+}
+
+.entry {
+    background-color:#B8860B;
+    margin:-8px;
+    color:white;
+}
