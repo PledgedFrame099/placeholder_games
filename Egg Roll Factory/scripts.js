@@ -55,7 +55,7 @@ function refreshUi() {
     getElement('to_next_level').innerHTML = Math.floor(xpNeed);
     getElement('cps').innerHTML = cps;
     getElement('cpc').innerHTML = cpc;
-    getElement('exp').style.width = (xp / xpNeed) * 50 + "%";
+    getElement('exp').style.width = (1 - (xp / xpNeed)) * 50 + "%";
     getElement('exp_counter').innerHTML = Math.floor(xp);
 }
 
